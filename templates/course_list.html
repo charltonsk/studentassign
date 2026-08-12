@@ -1,0 +1,27 @@
+{% extends "base.html" %}
+{% block title %}Courses — StudentAssign{% endblock %}
+{% block content %}
+<h1>All courses</h1>
+{% if current_user.is_instructor() %}
+<p><a class="btn btn-amber" href="{{ url_for('course_new') }}">+ New course</a></p>
+{% endif %}
+{% if courses %}
+<table>
+  <tr><th>Code</th><th>Title</th><th>Instructor</th><th></th></tr>
+  {% for c in courses %}
+  <tr>
+    <td>{{ c.code }}</td>
+    <td>{{ c.title }}</td>
+    <td>{{ c.instructor.name }}</td>
+    <td>
+      <a href="{{ url_for('course_detail', course_id=c.id) }}">
+        {% if c.id in my_ids %}Open{% else %}View{% endif %} &rarr;
+      </a>
+    </td>
+  </tr>
+  {% endfor %}
+</table>
+{% else %}
+<p class="muted">No courses have been created yet.</p>
+{% endif %}
+{% endblock %}

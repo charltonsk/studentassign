@@ -1,0 +1,39 @@
+{% extends "base.html" %}
+{% block title %}{{ course.code }} — StudentAssign{% endblock %}
+{% block content %}
+<h1>{{ course.code }} &mdash; {{ course.title }}</h1>
+<p class="muted">Taught by {{ course.instructor.name }}</p>
+{% if course.description %}<p>{{ course.description }}</p>{% endif %}
+
+{% if not current_user.is_instructor() and not is_enrolled %}
+<form method="POST" action="{{ url_for('course_enroll', course_id=course.id) }}">
+  <button class="btn btn-amber" type="submit">Enroll in this course</button>
+</form>
+{% endif %}
+
+{% if current_user.is_instructor() or is_enrolled %}
+<div class="card-row">
+  <h2 style="margin:0;">Assignments</h2>
+  {% if current_user.is_instructor() %}
+  <a class="btn btn-amber" href="{{ url_for('assignment_new', course_id=course.id) }}">+ New assignment</a>
+  {% endif %}
+</div>
+{% if course.assignments %}
+<table>
+  <tr><th>Title</th><th>Due date</th><th>Max score</th><th></th></tr>
+  {% for a in course.assignments %}
+  <tr>
+    <td>{{ a.title }}</td>
+    <td>{{ a.due_date.strftime('%d %b %Y, %H:%M') }}</td>
+    <td>{{ a.max_score }}</td>
+    <td><a href="{{ url_for('assignment_detail', assignment_id=a.id) }}">View &rarr;</a></td>
+  </tr>
+  {% endfor %}
+</table>
+{% else %}
+<p class="muted">No assignments posted yet.</p>
+{% endif %}
+{% else %}
+<p class="muted">Enroll to see assignments for this course.</p>
+{% endif %}
+{% endblock %}

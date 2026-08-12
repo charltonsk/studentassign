@@ -1,0 +1,111 @@
+/* StudentAssign — "academic ledger" theme:
+   deep ink navy + parchment, warm amber for action/deadline accents,
+   a serif for headings (registrar feel), a plain sans for body/data. */
+
+:root {
+  --ink: #1b2430;
+  --ink-soft: #4a5568;
+  --parchment: #f7f4ec;
+  --paper: #ffffff;
+  --line: #dcd5c3;
+  --navy: #223452;
+  --navy-deep: #16223a;
+  --amber: #c4801a;
+  --amber-soft: #f3e3c8;
+  --red: #a5341f;
+  --green: #2f6b45;
+  --radius: 3px;
+}
+
+* { box-sizing: border-box; }
+
+body {
+  margin: 0;
+  background: var(--parchment);
+  color: var(--ink);
+  font-family: "Iowan Old Style", "Georgia", "Charter", serif;
+  font-size: 16px;
+  line-height: 1.55;
+}
+
+.wrap { max-width: 980px; margin: 0 auto; padding: 0 24px; }
+
+h1, h2, h3 { font-family: "Iowan Old Style", Georgia, serif; color: var(--navy-deep); font-weight: 600; letter-spacing: 0.2px; }
+h1 { font-size: 1.9rem; border-bottom: 2px solid var(--navy-deep); padding-bottom: 10px; margin-bottom: 20px; }
+h2 { font-size: 1.35rem; margin-top: 2rem; }
+
+a { color: var(--navy); }
+
+label, .meta, .muted, th, .btn, nav, .topbar, input, select, textarea, button {
+  font-family: "Helvetica Neue", Arial, sans-serif;
+}
+
+/* ---- top bar ---- */
+.topbar { background: var(--navy-deep); color: #eee6d3; border-bottom: 3px solid var(--amber); }
+.topbar-inner { display: flex; align-items: center; justify-content: space-between; padding: 14px 24px; }
+.brand { font-family: "Iowan Old Style", Georgia, serif; font-size: 1.3rem; font-weight: 700; color: #f7f4ec; letter-spacing: 0.5px; text-decoration: none; }
+.topbar nav a { color: #eee6d3; text-decoration: none; margin-left: 18px; font-size: 0.92rem; }
+.topbar nav a:hover { color: var(--amber); }
+.who { margin-left: 18px; font-size: 0.85rem; color: #b7ad93; }
+.btn-link { border: 1px solid var(--amber); padding: 5px 12px; border-radius: var(--radius); }
+
+/* ---- flash ---- */
+.flash-stack { margin: 20px 0; }
+.flash { padding: 10px 14px; border-radius: var(--radius); margin-bottom: 8px; font-family: "Helvetica Neue", Arial, sans-serif; font-size: 0.92rem; }
+.flash-success { background: #e4f0e6; color: var(--green); border: 1px solid #b9d8c0; }
+.flash-error { background: #f5e2dd; color: var(--red); border: 1px solid #e3bcae; }
+
+/* ---- cards / tables ---- */
+.card {
+  background: var(--paper);
+  border: 1px solid var(--line);
+  border-radius: var(--radius);
+  padding: 20px 24px;
+  margin-bottom: 16px;
+}
+.card-row { display: flex; justify-content: space-between; align-items: center; }
+
+table { width: 100%; border-collapse: collapse; margin: 12px 0; }
+th, td { text-align: left; padding: 8px 10px; border-bottom: 1px solid var(--line); font-size: 0.93rem; }
+th { color: var(--ink-soft); font-weight: 600; text-transform: uppercase; font-size: 0.75rem; letter-spacing: 0.5px; }
+
+.tag { display: inline-block; padding: 2px 8px; border-radius: 12px; font-size: 0.72rem; font-family: "Helvetica Neue", Arial, sans-serif; font-weight: 600; }
+.tag-late { background: #f5e2dd; color: var(--red); }
+.tag-ontime { background: #e4f0e6; color: var(--green); }
+.tag-pending { background: var(--amber-soft); color: var(--amber); }
+.tag-graded { background: #e4e9f0; color: var(--navy); }
+
+/* ---- forms ---- */
+form.stack { display: flex; flex-direction: column; gap: 12px; max-width: 520px; }
+label { font-size: 0.85rem; font-weight: 600; color: var(--ink-soft); }
+input, select, textarea {
+  padding: 9px 10px; border: 1px solid var(--line); border-radius: var(--radius);
+  font-size: 0.95rem; background: var(--paper); color: var(--ink); width: 100%;
+}
+textarea { min-height: 100px; }
+
+.btn {
+  display: inline-block; background: var(--navy-deep); color: #f7f4ec;
+  border: none; padding: 9px 18px; border-radius: var(--radius);
+  font-size: 0.9rem; font-weight: 600; cursor: pointer; text-decoration: none;
+}
+.btn:hover { background: var(--navy); }
+.btn-amber { background: var(--amber); color: #fff; }
+.btn-amber:hover { background: #a86c15; }
+.btn-outline { background: transparent; border: 1px solid var(--navy); color: var(--navy); }
+
+.grid-2 { display: grid; grid-template-columns: 1fr 1fr; gap: 20px; }
+@media (max-width: 720px) { .grid-2 { grid-template-columns: 1fr; } }
+
+.muted { color: var(--ink-soft); font-size: 0.88rem; }
+.stat { font-family: "Iowan Old Style", Georgia, serif; font-size: 2.1rem; color: var(--navy-deep); }
+.stat-label { font-family: "Helvetica Neue", Arial, sans-serif; font-size: 0.75rem; text-transform: uppercase; letter-spacing: 0.6px; color: var(--ink-soft); }
+
+.hero {
+  border-left: 4px solid var(--amber);
+  padding: 20px 24px;
+  background: var(--paper);
+  margin: 20px 0 30px;
+}
+
+.footer { color: var(--ink-soft); font-size: 0.8rem; margin: 40px 0 24px; font-family: "Helvetica Neue", Arial, sans-serif; }

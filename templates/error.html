@@ -1,0 +1,6 @@
+{% extends "base.html" %}
+{% block title %}Error {{ code }} — StudentAssign{% endblock %}
+{% block content %}
+<h1>{{ code }} &mdash; {{ message }}</h1>
+<p class="muted">You may not have access to this page, or it doesn't exist. <a href="{{ url_for('dashboard') if current_user.is_authenticated else url_for('index') }}">Go back</a>.</p>
+{% endblock %}

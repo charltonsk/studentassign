@@ -1,0 +1,24 @@
+{% extends "base.html" %}
+{% block title %}New assignment — StudentAssign{% endblock %}
+{% block content %}
+<h1>New assignment &mdash; {{ course.code }}</h1>
+<form class="stack" method="POST">
+  <div>
+    <label>Title</label>
+    <input type="text" name="title" required>
+  </div>
+  <div>
+    <label>Description / instructions</label>
+    <textarea name="description"></textarea>
+  </div>
+  <div>
+    <label>Due date &amp; time</label>
+    <input type="datetime-local" name="due_date" required>
+  </div>
+  <div>
+    <label>Max score</label>
+    <input type="number" name="max_score" value="100" min="1" max="1000">
+  </div>
+  <button class="btn btn-amber" type="submit">Post assignment</button>
+</form>
+{% endblock %}

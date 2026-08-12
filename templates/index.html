@@ -1,0 +1,22 @@
+{% extends "base.html" %}
+{% block title %}StudentAssign — Assignments, on the record{% endblock %}
+{% block content %}
+<div class="hero">
+  <h1 style="border:none;margin-bottom:6px;">Assignments, on the record.</h1>
+  <p class="muted">One ledger for every course, every due date, every submission — instructors post and grade, students submit and track their standing.</p>
+  <p style="margin-top:18px;">
+    <a class="btn btn-amber" href="{{ url_for('register') }}">Create an account</a>
+    <a class="btn btn-outline" href="{{ url_for('login') }}" style="margin-left:8px;">Log in</a>
+  </p>
+</div>
+<div class="grid-2">
+  <div class="card">
+    <h2 style="margin-top:0;">For instructors</h2>
+    <p class="muted">Create courses, post assignments with due dates, review submissions, and record grades with feedback.</p>
+  </div>
+  <div class="card">
+    <h2 style="margin-top:0;">For students</h2>
+    <p class="muted">Enroll in courses, see what's due and when, submit text or files, and check grades once released.</p>
+  </div>
+</div>
+{% endblock %}

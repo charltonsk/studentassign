@@ -1,0 +1,20 @@
+{% extends "base.html" %}
+{% block title %}New course — StudentAssign{% endblock %}
+{% block content %}
+<h1>New course</h1>
+<form class="stack" method="POST">
+  <div>
+    <label>Course code</label>
+    <input type="text" name="code" placeholder="e.g. CS301" required>
+  </div>
+  <div>
+    <label>Title</label>
+    <input type="text" name="title" placeholder="e.g. Advanced Software Engineering" required>
+  </div>
+  <div>
+    <label>Description</label>
+    <textarea name="description" placeholder="Optional course description"></textarea>
+  </div>
+  <button class="btn btn-amber" type="submit">Create course</button>
+</form>
+{% endblock %}

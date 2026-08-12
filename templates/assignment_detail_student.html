@@ -1,0 +1,41 @@
+{% extends "base.html" %}
+{% block title %}{{ assignment.title }} — StudentAssign{% endblock %}
+{% block content %}
+<h1>{{ assignment.title }}</h1>
+<p class="muted">{{ course.code }} &middot; Due {{ assignment.due_date.strftime('%d %b %Y, %H:%M') }} &middot; Max score {{ assignment.max_score }}</p>
+{% if assignment.description %}<div class="card">{{ assignment.description }}</div>{% endif %}
+
+{% if now > assignment.due_date %}
+<p><span class="tag tag-late">Past due</span></p>
+{% endif %}
+
+<h2>Your submission</h2>
+{% if submission %}
+<div class="card">
+  <p><strong>Submitted:</strong> {{ submission.submitted_at.strftime('%d %b %Y, %H:%M') }}
+    {% if submission.is_late %}<span class="tag tag-late">Late</span>{% else %}<span class="tag tag-ontime">On time</span>{% endif %}
+  </p>
+  {% if submission.content_text %}<p>{{ submission.content_text }}</p>{% endif %}
+  {% if submission.filename %}<p class="muted">Attached file: {{ submission.filename }}</p>{% endif %}
+  {% if submission.score is not none %}
+    <p><strong>Grade:</strong> {{ submission.score }} / {{ assignment.max_score }}</p>
+    {% if submission.feedback %}<p><strong>Feedback:</strong> {{ submission.feedback }}</p>{% endif %}
+  {% else %}
+    <p class="muted"><span class="tag tag-pending">Not yet graded</span></p>
+  {% endif %}
+</div>
+<p class="muted">Submitting again will replace your current submission (and clear any existing grade).</p>
+{% endif %}
+
+<form class="stack" method="POST" action="{{ url_for('submission_create', assignment_id=assignment.id) }}" enctype="multipart/form-data">
+  <div>
+    <label>Text answer (optional if attaching a file)</label>
+    <textarea name="content_text">{{ submission.content_text if submission else '' }}</textarea>
+  </div>
+  <div>
+    <label>Attach a file (optional)</label>
+    <input type="file" name="file">
+  </div>
+  <button class="btn btn-amber" type="submit">{{ 'Resubmit' if submission else 'Submit' }}</button>
+</form>
+{% endblock %}

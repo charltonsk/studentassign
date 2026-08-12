@@ -1,0 +1,40 @@
+{% extends "base.html" %}
+{% block title %}{{ assignment.title }} — StudentAssign{% endblock %}
+{% block content %}
+<h1>{{ assignment.title }}</h1>
+<p class="muted">{{ course.code }} &middot; Due {{ assignment.due_date.strftime('%d %b %Y, %H:%M') }} &middot; Max score {{ assignment.max_score }}</p>
+{% if assignment.description %}<div class="card">{{ assignment.description }}</div>{% endif %}
+
+<h2>Submissions ({{ submissions|length }})</h2>
+{% if submissions %}
+{% for s in submissions %}
+<div class="card">
+  <div class="card-row">
+    <div>
+      <strong>{{ s.student.name }}</strong>
+      <span class="muted">({{ s.student.email }})</span>
+      {% if s.is_late %}<span class="tag tag-late">Late</span>{% else %}<span class="tag tag-ontime">On time</span>{% endif %}
+      {% if s.score is not none %}<span class="tag tag-graded">Graded</span>{% else %}<span class="tag tag-pending">Pending</span>{% endif %}
+    </div>
+    <div class="muted">{{ s.submitted_at.strftime('%d %b %Y, %H:%M') }}</div>
+  </div>
+  {% if s.content_text %}<p>{{ s.content_text }}</p>{% endif %}
+  {% if s.filename %}<p class="muted">Attached file: {{ s.filename }}</p>{% endif %}
+
+  <form method="POST" action="{{ url_for('submission_grade', submission_id=s.id) }}" style="display:flex; gap:10px; align-items:flex-end; margin-top:10px; flex-wrap: wrap;">
+    <div>
+      <label>Score (/{{ assignment.max_score }})</label>
+      <input type="number" name="score" min="0" max="{{ assignment.max_score }}" value="{{ s.score if s.score is not none else '' }}" required style="width:100px;">
+    </div>
+    <div style="flex:1; min-width:200px;">
+      <label>Feedback</label>
+      <input type="text" name="feedback" value="{{ s.feedback or '' }}">
+    </div>
+    <button class="btn btn-amber" type="submit">Save grade</button>
+  </form>
+</div>
+{% endfor %}
+{% else %}
+<p class="muted">No submissions yet.</p>
+{% endif %}
+{% endblock %}

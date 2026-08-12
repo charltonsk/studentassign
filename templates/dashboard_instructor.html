@@ -1,0 +1,37 @@
+{% extends "base.html" %}
+{% block title %}Dashboard — StudentAssign{% endblock %}
+{% block content %}
+<h1>Welcome, {{ current_user.name }}</h1>
+
+<div class="grid-2" style="margin-bottom: 10px;">
+  <div class="card">
+    <div class="stat">{{ courses|length }}</div>
+    <div class="stat-label">Courses you teach</div>
+  </div>
+  <div class="card">
+    <div class="stat">{{ pending_count }}</div>
+    <div class="stat-label">Submissions awaiting grading</div>
+  </div>
+</div>
+
+<div class="card-row">
+  <h2 style="margin:0;">Your courses</h2>
+  <a class="btn btn-amber" href="{{ url_for('course_new') }}">+ New course</a>
+</div>
+
+{% if courses %}
+<table>
+  <tr><th>Code</th><th>Title</th><th>Assignments</th><th></th></tr>
+  {% for c in courses %}
+  <tr>
+    <td>{{ c.code }}</td>
+    <td>{{ c.title }}</td>
+    <td>{{ c.assignments|length }}</td>
+    <td><a href="{{ url_for('course_detail', course_id=c.id) }}">Open &rarr;</a></td>
+  </tr>
+  {% endfor %}
+</table>
+{% else %}
+<p class="muted">You haven't created any courses yet.</p>
+{% endif %}
+{% endblock %}
