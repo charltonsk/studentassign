@@ -33,9 +33,9 @@ pytest -v
 1. Push this repo to GitHub.
 2. On Render: New → Blueprint → point at this repo (uses `render.yaml`).
 3. Render provisions a free PostgreSQL DB and a web service, wiring
-   `DATABASE_URL` and `SECRET_KEY` automatically.
-4. After the first deploy, open the Render Shell for the web service and run:
-   `flask init-db` to create tables, then optionally `python seed.py` for demo data.
+   `DATABASE_URL` and `SECRET_KEY` automatically, and runs `python seed.py`
+   once after the first successful deploy to create tables + demo data.
+4. Wait ~1-2 minutes after deploy finishes, then visit the live URL.
 
 See `/docs` in the submission package for full project documentation,
 SRS, testing report, technical debt plan, and user manual.
