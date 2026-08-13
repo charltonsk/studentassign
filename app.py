@@ -41,6 +41,16 @@ def create_app(test_config=None):
     os.makedirs(UPLOAD_FOLDER, exist_ok=True)
     db.init_app(app)
 
+    # Create tables on startup if they don't exist yet. This makes table
+    # creation happen synchronously before the app can serve any request,
+    # rather than relying on a separate deploy hook whose timing relative
+    # to the app starting to accept traffic is not guaranteed by every
+    # hosting platform (observed race condition on first deploy).
+    # create_all() only creates missing tables — it never drops or
+    # overwrites existing data, so this is safe to run on every startup.
+    with app.app_context():
+        db.create_all()
+
     login_manager = LoginManager()
     login_manager.login_view = "login"
     login_manager.init_app(app)
